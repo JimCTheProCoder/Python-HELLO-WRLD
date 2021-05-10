@@ -13,24 +13,31 @@ class Printer:
         for character in string.split():
             self.print_char(character)
             
-BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
-END = "\033[0m"
-COLOR_SEQ = "\033[1;%dm"
-
 class HelloWorldPrinter(Printer):
-     
     
     def __init__(self, stdout):
         super().__init__(stdout)
-       
+
     
-    def print_hello(self, color: Literal[BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE]):
-        os.system("color")
-        _str = "\033[9%dm" % (30 + color) + "hello" + END
-        super().print_string(_str)
+    def print_hello(self, color: str, word: str):
+        COLOR = {
+            "BLACK": "\033[90m",
+            "YELLOW": "\033[93m",
+            "MAGENTA": "\033[95m",
+            "BLUE": "\033[94m",
+            "GREEN": "\033[92m",
+            "RED": "\033[91m",
+            "CYAN": "\033[96m",
+            "WHITE": "\033[97m",
+            "END": "\033[0m",
+        }
+
+        if not color.upper() in COLOR.keys():
+            raise ValueError("Please give a valid color")
+
+        super().print_string(COLOR[color.upper()] + word + COLOR["END"])
         
         
         
 hello_world = HelloWorldPrinter(sys.stdout)
-hello_world.print_hello(RED)
-
+hello_world.print_hello("red", "hello")
