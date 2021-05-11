@@ -12,6 +12,8 @@ class Printer:
     def print_string(self, string):
         for character in string.split():
             self.print_char(character)
+	
+        self.print_char("\n")
             
 class HelloWorldPrinter(Printer):
     
